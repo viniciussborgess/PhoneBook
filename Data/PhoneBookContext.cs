@@ -9,6 +9,6 @@ namespace PhoneBook.Data
         {
         }
 
-        public DbSet<Models.PhoneBook> Phones { get; set; }
+        public DbSet<PhoneList> Phones { get; set; }
     }
 }
