@@ -14,9 +14,18 @@ namespace PhoneBook.Repositories
             _context = context;
         }
 
-        public Task<bool> Add(string name, string phone, string state)
+        public async Task<bool> Add(PhoneBookDto request)
         {
-            var phonwBook = new PhoneBook { Name = name, Phone = phone,}
+            var phoneList = new PhoneList
+            {
+                Name = request.Name,
+                Phone = request.Phone,
+                State = request.State
+            };
+
+            _context.Phones.Add(phoneList);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
