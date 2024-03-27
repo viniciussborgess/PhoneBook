@@ -1,4 +1,5 @@
-﻿using PhoneBook.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PhoneBook.Data;
 using PhoneBook.Data.Dtos;
 using PhoneBook.Models;
 using System.Threading.Tasks;
@@ -27,5 +28,29 @@ namespace PhoneBook.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> Delete(Guid id)
+        {
+            var result = await _context.Phones.FindAsync(id);
+            if (result == null) return false;
+
+            _context.Phones.Remove(result);
+            await _context.SaveChangesAsync();
+            return true;
+
+        }
+
+        public async Task<ICollection<PhoneBookDto>> GetAll()
+        {
+            var result = await _context.Phones.ToListAsync();
+            return result.Select(x => new PhoneBookDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Phone = x.Phone,
+                State = x.State
+            }).ToList(); 
+        }
+
     }
 }

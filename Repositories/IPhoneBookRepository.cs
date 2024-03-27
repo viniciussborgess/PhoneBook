@@ -5,6 +5,8 @@ namespace PhoneBook.Repositories
 {
     public interface IPhoneBookRepository
     {
-        Task<bool> Add(PhoneBookDto request); 
+        Task<bool> Add(PhoneBookDto request);
+        Task<ICollection<PhoneBookDto>> GetAll();
+        Task<bool> Delete(Guid id);
     }
 }
