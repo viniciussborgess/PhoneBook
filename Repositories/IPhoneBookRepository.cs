@@ -8,5 +8,6 @@ namespace PhoneBook.Repositories
         Task<bool> Add(PhoneBookDto request);
         Task<ICollection<PhoneBookDto>> GetAll();
         Task<bool> Delete(Guid id);
+        Task<bool> Update(PhoneBookDto request);
     }
 }
