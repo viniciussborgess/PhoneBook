@@ -43,5 +43,19 @@ namespace PhoneBook.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Upadate(Guid id, [FromBody] PhoneListViewModel resquest)
+        {
+            var dto = await _repository.Update(new PhoneBookDto
+            {
+                Id = id,
+                Name = resquest.Name,
+                Phone = resquest.Phone,
+                State = resquest.State
+            });
+            if(!dto) return BadRequest();
+            return Ok(dto);
+        }
     }
 }

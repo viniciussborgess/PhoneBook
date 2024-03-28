@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.EntityFrameworkCore;
 using PhoneBook.Data;
 using PhoneBook.Data.Dtos;
 using PhoneBook.Models;
@@ -49,8 +50,20 @@ namespace PhoneBook.Repositories
                 Name = x.Name,
                 Phone = x.Phone,
                 State = x.State
-            }).ToList(); 
+            }).ToList();
+
         }
 
+        public async Task<bool> Update(PhoneBookDto request)
+        {
+            var result = await _context.Phones.FindAsync(request.Id);
+            if (result == null) return false;
+            result.Name = request.Name;
+            result.Phone = request.Phone;
+            result.State = request.State;
+            await _context.SaveChangesAsync();
+            return true;
+            
+        }
     }
 }
